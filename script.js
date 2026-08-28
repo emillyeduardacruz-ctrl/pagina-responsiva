@@ -1,32 +1,52 @@
 ```javascript
 /* =========================================
-   MODO CLARO / ESCURO
+   FUNDO 3D INTERATIVO
 ========================================= */
 
-const darkMode = document.getElementById("darkMode");
+const canvas = document.getElementById("background3D");
 
-darkMode.addEventListener("click", () => {
-
-    document.body.classList.toggle("light");
-
-    if (document.body.classList.contains("light")) {
-
-        darkMode.textContent = "☀";
-
-    } else {
-
-        darkMode.textContent = "☾";
-
-    }
-
-});
+const ctx = canvas.getContext("2d");
 
 
 /* =========================================
-   BRILHO QUE ACOMPANHA O MOUSE
+   TAMANHO DA TELA
 ========================================= */
 
+let width;
+let height;
+
+function resizeCanvas() {
+
+    width = canvas.width = window.innerWidth;
+
+    height = canvas.height = window.innerHeight;
+
+}
+
+resizeCanvas();
+
+window.addEventListener("resize", resizeCanvas);
+
+
+/* =========================================
+   CONTROLE DO MOUSE
+========================================= */
+
+let mouseX = 0;
+let mouseY = 0;
+
+let targetMouseX = 0;
+let targetMouseY = 0;
+
+
 document.addEventListener("mousemove", (event) => {
+
+    targetMouseX =
+        (event.clientX / width - 0.5) * 2;
+
+    targetMouseY =
+        (event.clientY / height - 0.5) * 2;
+
 
     document.body.style.setProperty(
         "--mouse-x",
@@ -42,96 +62,294 @@ document.addEventListener("mousemove", (event) => {
 
 
 /* =========================================
-   PARTÍCULAS NEON
+   CONFIGURAÇÃO 3D
+========================================= */
+
+const particles = [];
+
+const particleCount =
+    window.innerWidth < 700 ? 120 : 220;
+
+
+const perspective = 500;
+
+const depth = 1200;
+
+
+/* =========================================
+   CRIAR PARTÍCULA
 ========================================= */
 
 function createParticle() {
 
-    const particle = document.createElement("div");
+    return {
 
-    particle.classList.add("particle");
+        x:
+            (Math.random() - 0.5) *
+            width *
+            2,
 
-    particle.style.left =
-        Math.random() * 100 + "vw";
+        y:
+            (Math.random() - 0.5) *
+            height *
+            2,
 
-    particle.style.animationDuration =
-        (5 + Math.random() * 8) + "s";
+        z:
+            Math.random() *
+            depth,
 
-    particle.style.animationDelay =
-        Math.random() * 5 + "s";
+        size:
+            Math.random() * 2 + 0.5,
 
-    particle.style.opacity =
-        0.3 + Math.random() * 0.7;
+        speed:
+            Math.random() * 2 + 0.5,
 
-    document.body.appendChild(particle);
+        brightness:
+            Math.random()
 
-
-    setTimeout(() => {
-
-        particle.remove();
-
-    }, 15000);
+    };
 
 }
 
 
-/* Cria partículas constantemente */
+/* Criar partículas */
 
-setInterval(createParticle, 500);
+for (let i = 0; i < particleCount; i++) {
+
+    particles.push(
+        createParticle()
+    );
+
+}
 
 
 /* =========================================
-   BOTÕES DOS DESAFIOS
+   DESENHAR PARTÍCULA
 ========================================= */
 
-const buttons =
-    document.querySelectorAll(".play-button");
+function drawParticle(particle) {
+
+    /*
+       Perspectiva 3D
+    */
+
+    const scale =
+        perspective /
+        (perspective + particle.z);
 
 
-const desafios = [
+    const x =
+        particle.x * scale +
+        width / 2;
 
-    {
-        titulo: "Flex-direction",
-        texto:
-            "O conteúdo do article foi organizado em linha utilizando flex-direction: row."
-    },
 
-    {
-        titulo: "Flex 100%",
-        texto:
-            "O card utiliza flex: 0 0 100%, fazendo com que ocupe toda a largura disponível."
-    },
+    const y =
+        particle.y * scale +
+        height / 2;
 
-    {
-        titulo: "Align-self",
-        texto:
-            "O botão utiliza align-self: flex-end para quebrar o alinhamento padrão dos elementos."
+
+    const size =
+        particle.size * scale * 3;
+
+
+    /* Fora da tela */
+
+    if (
+        x < -50 ||
+        x > width + 50 ||
+        y < -50 ||
+        y > height + 50
+    ) {
+
+        return;
+
     }
 
-];
 
+    /* Intensidade */
 
-buttons.forEach((button, index) => {
-
-    button.addEventListener("click", () => {
-
-        const desafio = desafios[index];
-
-        alert(
-            "✨ " +
-            desafio.titulo +
-            "\n\n" +
-            desafio.texto +
-            "\n\n🏆 Desafio concluído!"
+    const alpha =
+        Math.max(
+            0.05,
+            1 - particle.z / depth
         );
+
+
+    /*
+       Brilho da partícula
+    */
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        size,
+        0,
+        Math.PI * 2
+    );
+
+
+    ctx.fillStyle =
+        `rgba(190, 70, 255, ${alpha})`;
+
+
+    ctx.shadowBlur =
+        15 * scale;
+
+
+    ctx.shadowColor =
+        "#b52cff";
+
+
+    ctx.fill();
+
+}
+
+
+/* =========================================
+   ANIMAÇÃO
+========================================= */
+
+function animate() {
+
+    requestAnimationFrame(animate);
+
+
+    /*
+       Movimento suave do mouse
+    */
+
+    mouseX +=
+        (targetMouseX - mouseX) * 0.035;
+
+
+    mouseY +=
+        (targetMouseY - mouseY) * 0.035;
+
+
+    /*
+       Limpar tela
+    */
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    /*
+       Fundo
+    */
+
+    const gradient =
+        ctx.createRadialGradient(
+            width / 2,
+            height / 2,
+            0,
+            width / 2,
+            height / 2,
+            width
+        );
+
+
+    gradient.addColorStop(
+        0,
+        "#260548"
+    );
+
+
+    gradient.addColorStop(
+        0.45,
+        "#10021d"
+    );
+
+
+    gradient.addColorStop(
+        1,
+        "#040107"
+    );
+
+
+    ctx.fillStyle = gradient;
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    /*
+       Movimento 3D
+    */
+
+    particles.forEach(particle => {
+
+
+        /*
+           Mouse influencia a posição
+        */
+
+        particle.x +=
+            mouseX * 0.25;
+
+
+        particle.y +=
+            mouseY * 0.15;
+
+
+        /*
+           Partícula vem em direção
+           ao usuário
+        */
+
+        particle.z -=
+            particle.speed;
+
+
+        /*
+           Quando chega perto,
+           volta para o fundo
+        */
+
+        if (particle.z <= 1) {
+
+            particle.z = depth;
+
+            particle.x =
+                (Math.random() - 0.5) *
+                width *
+                2;
+
+            particle.y =
+                (Math.random() - 0.5) *
+                height *
+                2;
+
+        }
+
+
+        drawParticle(particle);
 
     });
 
-});
+
+    ctx.shadowBlur = 0;
+
+}
+
+
+/* Começar animação */
+
+animate();
 
 
 /* =========================================
-   EFEITO 3D NOS CARDS
+   EFEITO 3D DOS CARDS
 ========================================= */
 
 const cards =
@@ -140,79 +358,62 @@ const cards =
 
 cards.forEach(card => {
 
-    card.addEventListener("mousemove", (event) => {
+    card.addEventListener(
+        "mousemove",
+        (event) => {
 
-        const rect =
-            card.getBoundingClientRect();
-
-        const x =
-            event.clientX - rect.left;
-
-        const y =
-            event.clientY - rect.top;
+            const rect =
+                card.getBoundingClientRect();
 
 
-        const centerX =
-            rect.width / 2;
-
-        const centerY =
-            rect.height / 2;
+            const x =
+                event.clientX -
+                rect.left;
 
 
-        const rotateX =
-            ((y - centerY) / centerY) * -2;
-
-        const rotateY =
-            ((x - centerX) / centerX) * 2;
+            const y =
+                event.clientY -
+                rect.top;
 
 
-        card.style.transform = `
-            scale(1.02)
-            perspective(800px)
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-        `;
-
-    });
+            const centerX =
+                rect.width / 2;
 
 
-    card.addEventListener("mouseleave", () => {
-
-        card.style.transform =
-            "scale(1)";
-
-    });
-
-});
+            const centerY =
+                rect.height / 2;
 
 
-/* =========================================
-   CONTADOR DE DESAFIOS
-========================================= */
-
-let desafiosConcluidos = 0;
+            const rotateX =
+                ((y - centerY) /
+                centerY) * -2;
 
 
-buttons.forEach(button => {
+            const rotateY =
+                ((x - centerX) /
+                centerX) * 2;
 
-    button.addEventListener("click", () => {
 
-        desafiosConcluidos++;
-
-        if (desafiosConcluidos === 3) {
-
-            setTimeout(() => {
-
-                alert(
-                    "🏆 PARABÉNS!\n\n" +
-                    "Você concluiu os 3 desafios de Flexbox!"
-                );
-
-            }, 300);
+            card.style.transform = `
+                perspective(900px)
+                scale(1.02)
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+            `;
 
         }
+    );
 
-    });
+
+    card.addEventListener(
+        "mouseleave",
+        () => {
+
+            card.style.transform =
+                "scale(1)";
+
+        }
+    );
 
 });
 ```
