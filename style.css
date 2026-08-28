@@ -461,4 +461,12 @@ article:nth-child(3) {
     }
 
 }
+article {
+    flex-direction: row;
+    flex: 0 0 100%;
+}
+
+.play-button {
+    align-self: flex-end;
+}
 ```
