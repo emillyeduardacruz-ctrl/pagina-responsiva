@@ -12,195 +12,249 @@
 
 <body>
 
+    <!-- CABEÇALHO -->
     <header class="header">
+
         <div class="logo">
-            🎮 <span>Central de Jogos</span>
+            🎮 <span>Central de <b>Jogos</b></span>
         </div>
 
         <nav>
             <a href="#inicio">Início</a>
-            <a href="#jogos">Jogos</a>
+            <a href="#desafio">Desafio</a>
             <a href="#sobre">Sobre</a>
         </nav>
 
-        <button id="darkMode" class="theme-btn">🌙</button>
+        <button id="darkMode" class="theme-btn">☾</button>
+
     </header>
 
-    <main>
 
-        <section class="hero" id="inicio">
-            <div class="hero-content">
-                <span class="badge">✨ EXPERIÊNCIA PREMIUM</span>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
 
-                <h1>
-                    Entre no universo da
-                    <strong>Central de Jogos</strong>
-                </h1>
+        <div class="hero-content">
 
-                <p>
-                    Teste seus conhecimentos, enfrente desafios,
-                    acumule pontos e divirta-se.
-                </p>
+            <span class="premium">
+                ✦ EXPERIÊNCIA PREMIUM
+            </span>
 
-                <a href="#jogos" class="hero-button">
-                    Começar agora →
-                </a>
-            </div>
-
-            <div class="hero-image">
-                <div class="game-icon">🎮</div>
-            </div>
-        </section>
-
-
-        <section class="games-section" id="jogos">
-
-            <div class="section-title">
-                <span>🎯 DESAFIOS</span>
-                <h2>Escolha seu jogo</h2>
-                <p>Prepare-se para testar suas habilidades.</p>
-            </div>
-
-
-            <div class="games-list">
-
-                <!-- CARD 1 -->
-                <article class="game-card">
-
-                    <div class="card-image quiz-image">
-                        🧠
-                    </div>
-
-                    <div class="card-content">
-
-                        <span class="card-tag">CONHECIMENTO</span>
-
-                        <h3>Quiz Interativo</h3>
-
-                        <p>
-                            Responda perguntas, teste seus conhecimentos
-                            e descubra quantos pontos consegue alcançar.
-                        </p>
-
-                        <div class="card-info">
-                            <span>🏆 Pontuação</span>
-                            <span>⭐ Fácil</span>
-                        </div>
-
-                    </div>
-
-                    <button class="play-button" onclick="startQuiz()">
-                        Jogar →
-                    </button>
-
-                </article>
-
-
-                <!-- CARD 2 -->
-                <article class="game-card">
-
-                    <div class="card-image click-image">
-                        🎯
-                    </div>
-
-                    <div class="card-content">
-
-                        <span class="card-tag">VELOCIDADE</span>
-
-                        <h3>Desafio de Cliques</h3>
-
-                        <p>
-                            Clique o máximo que conseguir antes que
-                            o tempo termine. Será que você consegue?
-                        </p>
-
-                        <div class="card-info">
-                            <span>⚡ 10 segundos</span>
-                            <span>🔥 Difícil</span>
-                        </div>
-
-                    </div>
-
-                    <button class="play-button" onclick="startClickGame()">
-                        Jogar →
-                    </button>
-
-                </article>
-
-
-                <!-- CARD 3 -->
-                <article class="game-card">
-
-                    <div class="card-image true-image">
-                        🃏
-                    </div>
-
-                    <div class="card-content">
-
-                        <span class="card-tag">RACIOCÍNIO</span>
-
-                        <h3>Verdadeiro ou Falso</h3>
-
-                        <p>
-                            Analise cada afirmação e descubra se ela
-                            é verdadeira ou falsa.
-                        </p>
-
-                        <div class="card-info">
-                            <span>🧠 Estratégia</span>
-                            <span>⭐ Médio</span>
-                        </div>
-
-                    </div>
-
-                    <button class="play-button" onclick="startTrueFalse()">
-                        Jogar →
-                    </button>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- ÁREA DOS JOGOS -->
-
-        <section class="game-area">
-
-            <div id="gameMessage">
-                <h2>🎮 Seu jogo aparecerá aqui</h2>
-                <p>Escolha um desafio acima para começar.</p>
-            </div>
-
-            <div id="quizGame" class="hidden"></div>
-
-            <div id="clickGame" class="hidden"></div>
-
-            <div id="trueFalseGame" class="hidden"></div>
-
-        </section>
-
-
-        <section class="about" id="sobre">
-
-            <span>✨ SOBRE O PROJETO</span>
-
-            <h2>Uma central feita para você se divertir</h2>
+            <h1>
+                Central de
+                <strong>Jogos</strong>
+            </h1>
 
             <p>
-                Este projeto reúne diferentes desafios interativos
-                em uma única plataforma, combinando design,
-                programação e diversão.
+                Aprenda programação de forma divertida,
+                interativa e moderna.
             </p>
 
-        </section>
+            <a href="#desafio" class="hero-button">
+                Começar agora →
+            </a>
 
-    </main>
+        </div>
+
+        <div class="hero-image">
+            🎮
+        </div>
+
+    </section>
 
 
+    <!-- DESAFIO -->
+    <section class="games-section" id="desafio">
+
+        <div class="section-title">
+
+            <span>🎯 DESAFIO</span>
+
+            <h2>
+                Desenvolva seu projeto
+            </h2>
+
+            <p>
+                Aplique os conceitos de Flexbox no seu site.
+            </p>
+
+        </div>
+
+
+        <div class="games-list">
+
+
+            <!-- DESAFIO 1 -->
+            <article>
+
+                <div class="card-image">
+                    <span>01</span>
+                    💻
+                </div>
+
+                <div class="card-content">
+
+                    <span class="card-tag">
+                        FLEX-DIRECTION
+                    </span>
+
+                    <h3>
+                        Conteúdo em linha
+                    </h3>
+
+                    <p>
+                        No arquivo <b>style.css</b>, localize o
+                        seletor <b>article</b> e altere a propriedade
+                        <b>flex-direction</b> para que o conteúdo
+                        seja exibido em linha, colocando a imagem,
+                        o título e o texto um ao lado do outro.
+                    </p>
+
+                </div>
+
+                <button class="play-button">
+                    Ver desafio →
+                </button>
+
+            </article>
+
+
+            <!-- DESAFIO 2 -->
+            <article>
+
+                <div class="card-image">
+                    <span>02</span>
+                    📐
+                </div>
+
+                <div class="card-content">
+
+                    <span class="card-tag">
+                        FLEX
+                    </span>
+
+                    <h3>
+                        Cards com 100% da largura
+                    </h3>
+
+                    <p>
+                        Ajuste a propriedade <b>flex</b> dos cards
+                        para que cada um ocupe <b>100% da largura</b>
+                        da página, criando uma lista de postagens
+                        horizontais largas.
+                    </p>
+
+                </div>
+
+                <button class="play-button">
+                    Aplicar →
+                </button>
+
+            </article>
+
+
+            <!-- DESAFIO 3 -->
+            <article>
+
+                <div class="card-image">
+                    <span>03</span>
+                    ✨
+                </div>
+
+                <div class="card-content">
+
+                    <span class="card-tag">
+                        ALIGN-SELF
+                    </span>
+
+                    <h3>
+                        Quebre o alinhamento padrão
+                    </h3>
+
+                    <p>
+                        Utilize a propriedade <b>align-self</b> em
+                        um dos elementos internos do card, como o
+                        botão ou a imagem, para posicioná-lo de
+                        forma diferente dos demais elementos.
+                    </p>
+
+                </div>
+
+                <button class="play-button">
+                    Conferir →
+                </button>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ÁREA INTERATIVA -->
+    <section class="game-area">
+
+        <div class="game-decoration">
+            🎮
+        </div>
+
+        <div>
+
+            <span class="small-title">
+                ✦ ÁREA INTERATIVA
+            </span>
+
+            <h2>
+                Seu próximo desafio começa aqui
+            </h2>
+
+            <p>
+                Escolha uma das atividades acima e
+                coloque seus conhecimentos em prática.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- SOBRE -->
+    <section class="about" id="sobre">
+
+        <div>
+
+            <span>
+                ✦ SOBRE O PROJETO
+            </span>
+
+            <h2>
+                Uma central feita para você aprender
+            </h2>
+
+            <p>
+                Este projeto utiliza HTML, CSS e JavaScript
+                para criar uma experiência moderna e interativa,
+                aplicando conceitos de Flexbox e design responsivo.
+            </p>
+
+        </div>
+
+        <div class="trophy">
+            🏆
+        </div>
+
+    </section>
+
+
+    <!-- RODAPÉ -->
     <footer>
-        <p>🎮 Central de Jogos • Projeto desenvolvido com HTML, CSS e JavaScript</p>
+
+        🎮 <b>Central de Jogos</b>
+
+        <span>•</span>
+
+        Projeto desenvolvido com HTML, CSS e JavaScript
+
     </footer>
 
 
