@@ -1,472 +1,87 @@
 ```css
 /* =========================================
-   DETALHES PREMIUM + INTERAÇÕES
+   FUNDO 3D INTERATIVO
 ========================================= */
 
-/* Brilho geral do site */
-
-body::before {
-    content: "";
+#background3D {
     position: fixed;
 
-    width: 450px;
-    height: 450px;
+    inset: 0;
 
-    left: var(--mouse-x, 50%);
-    top: var(--mouse-y, 20%);
-
-    transform: translate(-50%, -50%);
-
-    background: radial-gradient(
-        circle,
-        rgba(177, 55, 255, 0.12),
-        transparent 65%
-    );
-
-    pointer-events: none;
-
-    z-index: -1;
-
-    transition: left 0.15s ease, top 0.15s ease;
-}
-
-
-/* =========================================
-   PARTICULAS
-========================================= */
-
-.particle {
-    position: fixed;
-
-    width: 4px;
-    height: 4px;
-
-    background: #c45aff;
-
-    border-radius: 50%;
-
-    pointer-events: none;
-
-    opacity: 0.7;
-
-    box-shadow:
-        0 0 8px #c45aff,
-        0 0 18px #8f20d4;
-
-    animation: floatParticle linear infinite;
-
-    z-index: -1;
-}
-
-@keyframes floatParticle {
-
-    0% {
-        transform: translateY(100vh) scale(0);
-        opacity: 0;
-    }
-
-    20% {
-        opacity: 0.8;
-    }
-
-    80% {
-        opacity: 0.8;
-    }
-
-    100% {
-        transform: translateY(-20vh) scale(1.5);
-        opacity: 0;
-    }
-
-}
-
-
-/* =========================================
-   ANIMAÇÃO DO HERO
-========================================= */
-
-.hero-content {
-    animation: heroEnter 1s ease forwards;
-}
-
-.hero-image {
-    animation:
-        heroEnter 1s ease forwards,
-        controllerFloat 4s ease-in-out infinite;
-}
-
-@keyframes heroEnter {
-
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-@keyframes controllerFloat {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-12px);
-    }
-
-}
-
-
-/* =========================================
-   CARDS MAIS INTERATIVOS
-========================================= */
-
-article {
-
-    position: relative;
-
-    overflow: hidden;
-
-    transform-style: preserve-3d;
-}
-
-
-/* Linha neon passando pelo card */
-
-article::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 0;
-    height: 2px;
-
-    left: 0;
-    top: 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            #d05cff,
-            #8d24d9,
-            transparent
-        );
-
-    box-shadow:
-        0 0 15px #bd45ff;
-
-    transition: width 0.5s ease;
-}
-
-article:hover::before {
     width: 100%;
-}
+    height: 100%;
 
+    z-index: -10;
 
-/* Brilho interno */
-
-article::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 180px;
-    height: 180px;
-
-    right: -100px;
-    bottom: -100px;
-
-    border-radius: 50%;
+    pointer-events: none;
 
     background:
         radial-gradient(
-            circle,
-            rgba(181, 61, 255, 0.25),
-            transparent 70%
+            circle at center,
+            #21063d 0%,
+            #0d0318 45%,
+            #050108 100%
         );
-
-    transition: 0.5s;
-}
-
-article:hover::after {
-
-    width: 300px;
-    height: 300px;
-
 }
 
 
-/* =========================================
-   IMAGENS DOS CARDS
-========================================= */
-
-.card-image {
-
-    transition:
-        transform 0.5s ease,
-        box-shadow 0.5s ease;
-}
-
-article:hover .card-image {
-
-    transform:
-        translateZ(20px)
-        scale(1.06)
-        rotate(-2deg);
-
-    box-shadow:
-        0 0 30px rgba(185, 63, 255, 0.5);
-}
-
-
-/* =========================================
-   TÍTULO
-========================================= */
-
-.card-content h3 {
-
-    transition:
-        color 0.3s ease,
-        transform 0.3s ease;
-}
-
-article:hover .card-content h3 {
-
-    color: #d66bff;
-
-    transform: translateX(5px);
-
-}
-
-
-/* =========================================
-   BOTÃO PREMIUM
-========================================= */
-
-.play-button {
-
-    position: relative;
-
-    overflow: hidden;
-
-    z-index: 2;
-}
-
-.play-button::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 30px;
-    height: 200%;
-
-    top: -50%;
-
-    left: -60px;
-
-    background: rgba(255,255,255,0.35);
-
-    transform: rotate(25deg);
-
-    transition: left 0.5s ease;
-}
-
-.play-button:hover::before {
-
-    left: 130%;
-
-}
-
-.play-button:hover {
-
-    transform:
-        translateY(-5px)
-        scale(1.05);
-
-}
-
-
-/* =========================================
-   BADGE PREMIUM PULSANDO
-========================================= */
-
-.premium {
-
-    animation: premiumPulse 2.5s infinite;
-}
-
-@keyframes premiumPulse {
-
-    0%,
-    100% {
-        box-shadow:
-            0 0 10px rgba(174, 48, 255, 0.2);
-    }
-
-    50% {
-        box-shadow:
-            0 0 25px rgba(190, 68, 255, 0.6);
-    }
-
-}
-
-
-/* =========================================
-   TÍTULO DA SEÇÃO
-========================================= */
-
-.section-title h2 {
-
-    text-shadow:
-        0 0 25px rgba(184, 65, 255, 0.25);
-
-}
-
-
-/* =========================================
-   TROFÉU
-========================================= */
-
-.trophy {
-
-    animation:
-        trophyFloat 3s ease-in-out infinite;
-}
-
-@keyframes trophyFloat {
-
-    0%,
-    100% {
-        transform: translateY(0) rotate(0);
-    }
-
-    50% {
-        transform:
-            translateY(-10px)
-            rotate(3deg);
-    }
-
-}
-
-
-/* =========================================
-   ÁREA INTERATIVA
-========================================= */
-
-.game-area {
-
-    position: relative;
-
-    overflow: hidden;
-}
-
-.game-area::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 250px;
-    height: 250px;
-
-    right: -100px;
-    top: -100px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(184, 61, 255, 0.25),
-            transparent 70%
-        );
-
-    animation: glowMove 4s ease-in-out infinite;
-}
-
-@keyframes glowMove {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.3);
-    }
-
-}
-
-
-/* =========================================
-   SCROLL REVEAL
-========================================= */
-
-article,
+/* Deixa as partes do site levemente transparentes
+   para o cenário 3D aparecer atrás */
+
+.hero,
+.games-section,
 .game-area,
 .about {
-
-    opacity: 0;
-
-    transform: translateY(30px);
-
-    animation: reveal 0.8s ease forwards;
-}
-
-article:nth-child(1) {
-    animation-delay: 0.15s;
-}
-
-article:nth-child(2) {
-    animation-delay: 0.3s;
-}
-
-article:nth-child(3) {
-    animation-delay: 0.45s;
-}
-
-@keyframes reveal {
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+    position: relative;
 }
 
 
-/* =========================================
-   RESPONSIVIDADE
-========================================= */
+/* Brilho roxo sobre o conteúdo */
 
-@media (max-width: 850px) {
+.hero::before,
+.games-section::before,
+.game-area::before,
+.about::before {
+    content: "";
 
-    article:hover {
-        transform: scale(1.01);
-    }
+    position: absolute;
 
-    .hero-image {
-        animation:
-            heroEnter 1s ease forwards;
-    }
+    inset: 0;
 
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at var(--mouse-x, 50%)
+            var(--mouse-y, 50%),
+            rgba(157, 45, 255, 0.08),
+            transparent 35%
+        );
+
+    z-index: -1;
 }
-article {
-    flex-direction: row;
-    flex: 0 0 100%;
+
+
+/* O fundo do site não fica totalmente chapado */
+
+.hero {
+    background: rgba(8, 2, 15, 0.30);
 }
 
-.play-button {
-    align-self: flex-end;
+.games-section {
+    background: rgba(8, 2, 15, 0.20);
+}
+
+.game-area {
+    background:
+        linear-gradient(
+            100deg,
+            rgba(24, 5, 41, 0.75),
+            rgba(43, 9, 72, 0.60)
+        );
+}
+
+.about {
+    background: rgba(8, 2, 15, 0.35);
 }
 ```
